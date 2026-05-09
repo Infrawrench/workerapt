@@ -9,25 +9,35 @@
 	"r2_buckets": [
 		{
 			"binding": "POOL_BUCKET",
-		}
+		},
 	],
 	"durable_objects": {
 		"bindings": [
 			{
 				"class_name": "DistDurableObject",
 				"name": "DIST_DO",
-			}
-		]
+			},
+		],
 	},
 	"migrations": [
 		{
 			"tag": "v1",
-			"new_sqlite_classes": ["DistDurableObject"]
-		}
+			"new_sqlite_classes": ["DistDurableObject"],
+		},
 	],
 	"upload_source_maps": true,
 	"compatibility_flags": ["nodejs_compat"],
 	"secrets": {
-		"required": ["GPG_PUBLIC_KEY", "GPG_PRIVATE_KEY", "KEY"],
+		"required": [
+			"GPG_PUBLIC_KEY",
+			"GPG_PRIVATE_KEY",
+			"KEY",
+			"ORIGIN",
+			"LABEL",
+			"R2_ACCOUNT_ID",
+			"R2_BUCKET_NAME",
+			"R2_ACCESS_KEY_ID",
+			"R2_SECRET_ACCESS_KEY",
+		],
 	},
 }

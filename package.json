@@ -1,18 +1,30 @@
 {
 	"name": "workerapt",
 	"private": true,
+	"bin": {
+		"workerapt-upload": "bin/workerapt-upload.mjs"
+	},
 	"scripts": {
 		"deploy": "wrangler deploy",
 		"dev": "wrangler dev",
 		"start": "wrangler dev",
-		"cf-typegen": "wrangler types"
+		"cf-typegen": "wrangler types",
+		"typecheck": "tsc --noEmit",
+		"format": "prettier --write .",
+		"format:check": "prettier --check .",
+		"test": "vitest run",
+		"test:watch": "vitest"
 	},
 	"devDependencies": {
+		"@cloudflare/vitest-pool-workers": "^0.16.3",
 		"@types/node": "^25.6.0",
+		"prettier": "^3.8.3",
 		"typescript": "^5.5.2",
+		"vitest": "^4.1.5",
 		"wrangler": "^4.88.0"
 	},
 	"dependencies": {
+		"aws4fetch": "^1.0.20",
 		"hono": "^4.12.18",
 		"openpgp": "^6.3.0",
 		"valibot": "^1.4.0"

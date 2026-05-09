@@ -36,7 +36,7 @@
 
 		/* Skip type checking all .d.ts files. */
 		"skipLibCheck": true,
-		"types": ["./worker-configuration.d.ts", "node"],
+		"types": ["./worker-configuration.d.ts", "node", "./node_modules/@cloudflare/vitest-pool-workers/types/cloudflare-test.d.ts"]
 	},
-	"include": ["worker-configuration.d.ts", "src/**/*.ts"],
+	"include": ["worker-configuration.d.ts", "src/**/*.ts", "test/**/*.ts"]
 }
