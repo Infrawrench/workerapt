@@ -13,7 +13,7 @@ A Cloudflare Worker that serves a signed APT repository, with `.deb` storage in 
 - **Multi-tenant by path.** A single deployment hosts many repos (`/<repo>/...`), each with its own pool prefix and DO-backed dists.
 - **Standards-compliant.** Output is plain APT (`deb [signed-by=...]`) — clients use stock `apt-get`, no custom transport.
 - **One-line client setup.** `curl .../<repo>/setup | sh` writes the keyring and sources list.
-- **Tiny upload tool.** `bin/workerapt-upload.mjs` is a single dependency-free Node file you drop into CI.
+- **Tiny upload tool.** [`workerapt-upload`](https://www.npmjs.com/package/workerapt-upload) is a single dependency-free Node file — run it via `npx workerapt-upload` or drop `bin/workerapt-upload.mjs` straight into CI.
 
 ## Setup
 
@@ -86,17 +86,21 @@ npx wrangler deploy
 
 ## Uploading packages
 
-Copy `bin/workerapt-upload.mjs` into your release pipeline (it's a single-file Node script with no dependencies beyond Node 18+) and run it against your built `.deb` files:
+Run the CLI from npm with `npx` (Node 18+) — no install step needed:
 
 ```sh
 WORKERAPT_URL=https://workerapt.example.workers.dev \
 WORKERAPT_KEY=<the KEY secret> \
-node workerapt-upload.mjs \
+npx workerapt-upload \
     --repo myrepo \
     --dist stable \
     --cat main \
     dist/*.deb
 ```
+
+Or copy `bin/workerapt-upload.mjs` straight into your release pipeline — it's a single-file Node script with no dependencies.
+
+Publishing a new version of the CLI itself: `scripts/publish-workerapt-upload.sh <version>` (see the script for `--dry-run` / `--tag` flags).
 
 The script hashes each `.deb`, asks the Worker for a presigned R2 URL, uploads directly to R2, then publishes the batch to the dist so the `Packages`, `Packages.gz`, `Release`, `Release.gpg`, and `InRelease` indices are regenerated and signed.
 
